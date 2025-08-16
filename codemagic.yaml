@@ -1,0 +1,33 @@
+workflows:
+  EiOS-App-Build:
+    name: EiOS App
+    max_build_duration: 60
+    environment:
+      vars:
+        NODE_ENV: production
+      node: 20.6.0
+      flutter: none
+      ruby: 3.2.2
+    scripts:
+      - name: Install Dependencies
+        script: |
+          npm install
+          npx pod-install ios
+      - name: Lint TypeScript
+        script: |
+          npx tsc --noEmit
+      - name: Run Tests
+        script: |
+          npm test
+      - name: Bundle JS (Optional)
+        script: |
+          npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle
+    artifacts:
+      - ios/build/**
+    publishing:
+      scripts:
+        - name: Upload Artifacts
+          script: echo "Artifacts ready for download"
+    ios:
+      build: true
+      export_method: development  # Still development to avoid App Store export
