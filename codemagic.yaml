@@ -1,29 +1,55 @@
 workflows:
-  EiOS-App-Build:
-    name: EiOS App
+  EiOS-iOS-App:
+    name: EiOS iOS App
     max_build_duration: 60
+    instance_type: mac_mini_m1
+
     environment:
       vars:
-        NODE_ENV: production
-      node: 20.6.0
-      ruby: 3.2.2
+        NODE_VERSION: 18
+      xcode: latest
+      cocoapods: default
+      node: $NODE_VERSION
+      npm: default
+      yarn: default
+
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: "*"
+          include: true
+          source: true
+
     scripts:
-      - name: Install Dependencies
+      - name: Install Node.js
+        script: |
+          nvm install $NODE_VERSION
+          nvm use $NODE_VERSION
+          node -v
+          npm -v
+
+      - name: Install dependencies
         script: |
           npm install
-          npx pod-install ios
-      - name: Lint TypeScript
+
+      - name: Install CocoaPods
         script: |
-          npx tsc --noEmit
-      - name: Run Tests
+          cd ios
+          pod install
+          cd ..
+
+      - name: Build iOS Debug
         script: |
-          npm test
-      - name: Bundle JS (Optional)
-        script: |
-          npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle
+          cd ios
+          xcodebuild \
+            -workspace YourApp.xcworkspace \
+            -scheme YourApp \
+            -configuration Debug \
+            -sdk iphoneos \
+            build \
+            CODE_SIGNING_ALLOWED=NO
+          cd ..
+
     artifacts:
-      - ios/build/**
-    publishing:
-      scripts:
-        - name: Upload Artifacts
-          script: echo "Artifacts ready for download"
+      - ios/build/Build/Products/Debug-iphoneos/*.app
