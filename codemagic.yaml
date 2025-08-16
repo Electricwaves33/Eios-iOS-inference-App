@@ -6,7 +6,6 @@ workflows:
       vars:
         NODE_ENV: production
       node: 20.6.0
-      flutter: none
       ruby: 3.2.2
     scripts:
       - name: Install Dependencies
