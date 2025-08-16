@@ -28,5 +28,3 @@ workflows:
       scripts:
         - name: Upload Artifacts
           script: echo "Artifacts ready for download"
-    ios:
-      build: true
