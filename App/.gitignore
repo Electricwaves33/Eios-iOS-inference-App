@@ -1,0 +1,43 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+bun.lockb
+
+# Expo
+.expo/
+.expo-shared/
+web-build/
+dist/
+
+# React Native
+ios/build/
+ios/Pods/
+android/build/
+android/app/build/
+
+# Metro bundler cache
+.expo/
+.expo-shared/
+*.expo/
+
+# Logs
+*.log
+*.tmp
+*.swp
+*.swo
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
