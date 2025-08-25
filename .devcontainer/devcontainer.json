@@ -1,0 +1,16 @@
+{
+  "name": "expo-eas",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "postCreateCommand": "corepack enable && npm -v && node -v",
+  "customizations": {
+    "vscode": {
+      "settings": { "terminal.integrated.defaultProfile.linux": "bash" }
+    }
+  },
+  "portsAttributes": {
+    "8081": { "label": "Expo dev server", "onAutoForward": "openBrowser" }
+  }
+}
