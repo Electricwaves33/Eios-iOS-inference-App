@@ -2,15 +2,32 @@
   "name": "expo-eas",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
   "features": {
-    "ghcr.io/devcontainers/features/git:1": {}
-  },
-  "postCreateCommand": "corepack enable && npm -v && node -v",
-  "customizations": {
-    "vscode": {
-      "settings": { "terminal.integrated.defaultProfile.linux": "bash" }
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
     }
   },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "msjsdiag.debugger-for-chrome"
+      ]
+    }
+  },
+  "forwardPorts": [8081],
   "portsAttributes": {
-    "8081": { "label": "Expo dev server", "onAutoForward": "openBrowser" }
-  }
+    "8081": {
+      "label": "Expo dev server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "corepack enable && npm install && npm -v && node -v && echo 'Devcontainer ready!'"
 }
