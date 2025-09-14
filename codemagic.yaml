@@ -5,9 +5,6 @@ workflows:
     instance_type: mac_mini_m1
 
     environment:
-      vars:
-        WORKSPACE: ios/YourApp.xcworkspace   # <-- change this
-        SCHEME: YourApp                      # <-- change this
       xcode: latest
       cocoapods: default
       node: 22.19.0
@@ -28,35 +25,22 @@ workflows:
         - ios/Pods
 
     scripts:
-      - name: Install Node.js & npm version
+      - name: Install dependencies
         script: |
-          set -e
-          echo "Using node version $NODE_VERSION override: 22.19.0"
-          nvm install 22.19.0
-          nvm use 22.19.0
-          node -v
-          npm install -g npm@11.6.0
-          npm -v
-
-      - name: Install JS dependencies
-        script: |
-          set -e
           npm install --legacy-peer-deps
 
       - name: Install CocoaPods
         script: |
-          set -e
-          cd ios || exit 1
+          cd ios
           pod install
           cd ..
 
       - name: Build iOS Debug
         script: |
-          set -e
-          cd ios || exit 1
+          cd ios
           xcodebuild \
-            -workspace "$WORKSPACE" \
-            -scheme "$SCHEME" \
+            -workspace YourApp.xcworkspace \
+            -scheme YourApp \
             -configuration Debug \
             -sdk iphoneos \
             build \
