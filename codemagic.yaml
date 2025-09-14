@@ -18,12 +18,6 @@ workflows:
           include: true
           source: true
 
-    cache:
-      paths:
-        - ~/.npm
-        - node_modules
-        - ios/Pods
-
     scripts:
       - name: Install dependencies
         script: |
