@@ -11,7 +11,6 @@ workflows:
       cocoapods: default
       node: $NODE_VERSION
       npm: default
-      yarn: default
 
     triggering:
       events:
